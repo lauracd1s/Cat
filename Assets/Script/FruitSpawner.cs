@@ -41,5 +41,9 @@ public class FruitSpawner : MonoBehaviour
     
     fruit.transform.localScale = Vector3.one * 0.5f;
     fruit.AddComponent<FruitFall>().speed = fallSpeed;
+
+    fruit.AddComponent<CircleCollider2D>().isTrigger = true;
+    fruit.AddComponent<FruitCollect>();
+
 }
 }

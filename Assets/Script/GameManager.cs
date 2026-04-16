@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public int coins = 0;
 
     public int lives = 3;
     public GameObject[] lifeIcons;
@@ -95,4 +96,11 @@ void FindUI()
        // Debug.LogWarning("⚠️ DeathText NO encontrado en esta escena");
     }
 }
+
+public void AddCoins(int amount)
+{
+    coins += amount;
+    Debug.Log("Monedas: " + coins);
+}
+
 }
