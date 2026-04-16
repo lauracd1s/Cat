@@ -21,7 +21,9 @@ public class EnemyPatrol : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        target = pointA;
         target = pointB;
+
     }
 
     void Update()
@@ -31,10 +33,10 @@ public class EnemyPatrol : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.position);
 
         // Detecta jugador
-        if (distance < detectionRange)
-        {
-            isChasing = true;
-        }
+         if (distance < detectionRange)
+         {
+             isChasing = true;
+         }
 
         if (isChasing)
         {
@@ -68,15 +70,27 @@ public class EnemyPatrol : MonoBehaviour
     // 🚶 PATRULLAR
     void Patrol()
     {
+        if (target == null || pointA == null || pointB == null)
+            return;
+
         transform.position = Vector2.MoveTowards(
             transform.position,
             target.position,
             speed * Time.deltaTime
         );
 
-        if (Vector2.Distance(transform.position, target.position) < 0.2f)
+        float distance = Vector2.Distance(transform.position, target.position);
+
+        if (distance < 0.5f)
         {
-            target = (target == pointA) ? pointB : pointA;
+            transform.position = target.position;
+
+            if (target == pointA)
+                target = pointB;
+            else
+                target = pointA;
+
+            Debug.Log("CAMBIO DE PUNTO"); // 👈 IMPORTANTE
             Flip();
         }
     }
