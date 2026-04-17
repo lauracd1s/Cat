@@ -24,34 +24,29 @@ public class EnemyPatrol : MonoBehaviour
 
     void Start()
     {
-        sr = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
 
-        // 👇 Elegir el punto más cercano al iniciar
         if (pointA != null && pointB != null)
         {
-            float distA = Vector2.Distance(transform.position, pointA.position);
-            float distB = Vector2.Distance(transform.position, pointB.position);
+            float distA = Mathf.Abs(transform.position.x - pointA.position.x);
+            float distB = Mathf.Abs(transform.position.x - pointB.position.x);
 
             target = (distA < distB) ? pointA : pointB;
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (pointA == null || pointB == null) return;
+
+        // 🔥 DETECCIÓN
         if (canChase && player != null)
         {
             float distanceX = Mathf.Abs(player.position.x - transform.position.x);
             float distanceY = Mathf.Abs(player.position.y - transform.position.y);
 
-            if (distanceX < detectionRange && distanceY < 1f)
-            {
-                isChasing = true;
-            }
-            else
-            {
-                isChasing = false;
-            }
+            isChasing = (distanceX < detectionRange && distanceY < 1f);
         }
         else
         {
@@ -59,65 +54,57 @@ public class EnemyPatrol : MonoBehaviour
         }
 
         if (isChasing)
-        {
-            ChasePlayer(); 
-}
+            ChasePlayer();
         else
-        {
             Patrol();
-        }
     }
-    // 👾 PERSEGUIR JUGADOR
+
+    // 👾 PERSEGUIR
     void ChasePlayer()
     {
         float dir = Mathf.Sign(player.position.x - transform.position.x);
 
-        rb.linearVelocity = new Vector2(dir * speed, 0);
+        rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
 
         FlipTowards(player.position);
 
-        if (Time.time > lastAttackTime + attackCooldown)
+        float distance = Mathf.Abs(transform.position.x - player.position.x);
+
+        if (distance < attackRange && Time.time > lastAttackTime + attackCooldown)
         {
             GameManager.instance.LoseLife();
             lastAttackTime = Time.time;
         }
     }
 
-
-    // 🚶 PATRULLAR
+    // 🚶 PATRULLAR (ARREGLADO)
     void Patrol()
     {
-        if (target == null || pointA == null || pointB == null)
-            return;
+        if (pointA == null || pointB == null) return;
 
-        float dir = Mathf.Sign(target.position.x - transform.position.x);
+        if (target == null)
+            target = pointA;
 
-        rb.linearVelocity = new Vector2(dir * speed, 0);
+        float posX = transform.position.x;
+        float targetX = target.position.x;
 
-        float distance = Vector2.Distance(transform.position, target.position);
+        float dir = (targetX > posX) ? 1f : -1f;
 
-        if (distance < 0.3f) // 👈 más preciso
+        rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
+
+        if (Mathf.Abs(posX - targetX) < 0.2f)
         {
             target = (target == pointA) ? pointB : pointA;
-            Flip();
         }
-    }
 
-    // 🔄 VOLTEAR NORMAL
-    void Flip()
-    {
         if (sr != null)
-            sr.flipX = !sr.flipX;
+            sr.flipX = (dir < 0);
     }
 
-    // 🎯 MIRAR AL JUGADOR
+    // 🎯 MIRAR JUGADOR
     void FlipTowards(Vector3 targetPos)
     {
         if (sr == null) return;
-
-        if (targetPos.x > transform.position.x)
-            sr.flipX = false;
-        else
-            sr.flipX = true;
+        sr.flipX = (targetPos.x < transform.position.x);
     }
 }
