@@ -3432,6 +3432,7 @@ GameObject:
   - component: {fileID: 1653226143}
   - component: {fileID: 1653226142}
   - component: {fileID: 1653226141}
+  - component: {fileID: 1653226145}
   m_Layer: 0
   m_Name: 'Bat_Fly_0 '
   m_TagString: Untagged
@@ -3577,7 +3578,7 @@ BoxCollider2D:
   m_Offset: {x: -0.008162096, y: 0.05094821}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5626667, y: 0.04842498}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.16, y: 0.11}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
@@ -3635,6 +3636,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1653226145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653226137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2187913984e3a6b4b849206a05388c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BatMovement
+  speed: 2
+  moveRange: 3
+  heightRange: 1
+  player: {fileID: 0}
+  detectionRange: 4
+  attackRange: 1.2
+  attackCooldown: 1.5
 --- !u!1 &1691896183
 GameObject:
   m_ObjectHideFlags: 0
