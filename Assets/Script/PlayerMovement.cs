@@ -156,11 +156,6 @@ public class PlayerMovement : MonoBehaviour
             Respawn();
             Invoke(nameof(ResetDeath), 0.5f);
         }
-
-        if (collision.CompareTag("Goal"))
-        {
-            SceneManager.LoadScene("TransicionNivel");
-        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
