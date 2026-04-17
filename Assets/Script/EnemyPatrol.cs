@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
 {
+    [Header("Comportamiento")]
+    public bool canChase = false;
+
     [Header("Movimiento")]
     public float speed = 2f;
     public Transform pointA;
@@ -16,64 +19,70 @@ public class EnemyPatrol : MonoBehaviour
     private float lastAttackTime;
     private Transform target;
     private SpriteRenderer sr;
-    private bool isChasing = false;
     private Rigidbody2D rb;
-
+    private bool isChasing = false;
 
     void Start()
     {
-        // sr = GetComponent<SpriteRenderer>();
-        //target = pointA;
-
-
         sr = GetComponentInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>(); // 👈 ESTO ES CLAVE
-        target = pointA;
+        rb = GetComponent<Rigidbody2D>();
 
+        // 👇 Elegir el punto más cercano al iniciar
+        if (pointA != null && pointB != null)
+        {
+            float distA = Vector2.Distance(transform.position, pointA.position);
+            float distB = Vector2.Distance(transform.position, pointB.position);
+
+            target = (distA < distB) ? pointA : pointB;
+        }
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (canChase && player != null)
+        {
+            float distanceX = Mathf.Abs(player.position.x - transform.position.x);
+            float distanceY = Mathf.Abs(player.position.y - transform.position.y);
 
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        // Detecta jugador
-         if (distance < detectionRange)
-         {
-             isChasing = true;
-         }
+            if (distanceX < detectionRange && distanceY < 1f)
+            {
+                isChasing = true;
+            }
+            else
+            {
+                isChasing = false;
+            }
+        }
+        else
+        {
+            isChasing = false;
+        }
 
         if (isChasing)
         {
-            ChasePlayer(distance);
-        }
+            ChasePlayer(); 
+}
         else
         {
             Patrol();
         }
     }
-
     // 👾 PERSEGUIR JUGADOR
-    void ChasePlayer(float distance)
+    void ChasePlayer()
     {
-        Vector2 newPos = Vector2.MoveTowards(
-        rb.position,
-        player.position,
-        speed * Time.deltaTime
-        );
+        float dir = Mathf.Sign(player.position.x - transform.position.x);
 
-        rb.MovePosition(newPos);
+        rb.linearVelocity = new Vector2(dir * speed, 0);
 
         FlipTowards(player.position);
 
-        // ATAQUE
-        if (distance < attackRange && Time.time > lastAttackTime + attackCooldown)
+        if (Time.time > lastAttackTime + attackCooldown)
         {
             GameManager.instance.LoseLife();
             lastAttackTime = Time.time;
         }
     }
+
 
     // 🚶 PATRULLAR
     void Patrol()
@@ -81,27 +90,15 @@ public class EnemyPatrol : MonoBehaviour
         if (target == null || pointA == null || pointB == null)
             return;
 
-        //yo
-        Vector2 newPos = Vector2.MoveTowards(
-        rb.position,
-        target.position,
-        speed * Time.deltaTime
-        );
+        float dir = Mathf.Sign(target.position.x - transform.position.x);
 
-        rb.MovePosition(newPos);
+        rb.linearVelocity = new Vector2(dir * speed, 0);
 
         float distance = Vector2.Distance(transform.position, target.position);
 
-        if (distance < 0.5f)
+        if (distance < 0.3f) // 👈 más preciso
         {
-            transform.position = target.position;
-
-            if (target == pointA)
-                target = pointB;
-            else
-                target = pointA;
-
-            Debug.Log("CAMBIO DE PUNTO"); // 👈 IMPORTANTE
+            target = (target == pointA) ? pointB : pointA;
             Flip();
         }
     }
@@ -109,12 +106,15 @@ public class EnemyPatrol : MonoBehaviour
     // 🔄 VOLTEAR NORMAL
     void Flip()
     {
-        sr.flipX = !sr.flipX;
+        if (sr != null)
+            sr.flipX = !sr.flipX;
     }
 
     // 🎯 MIRAR AL JUGADOR
     void FlipTowards(Vector3 targetPos)
     {
+        if (sr == null) return;
+
         if (targetPos.x > transform.position.x)
             sr.flipX = false;
         else
