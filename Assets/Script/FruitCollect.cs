@@ -8,7 +8,10 @@ public class FruitCollect : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("🍎 Fruta recogida");
+
             GameManager.instance.AddCoins(value);
+
             Destroy(gameObject);
         }
     }

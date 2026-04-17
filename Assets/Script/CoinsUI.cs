@@ -7,6 +7,6 @@ public class CoinsUI : MonoBehaviour
 
     void Update()
     {
-        text.text = "🍎 " + GameManager.instance.coins;
+        text.text = GameManager.instance.coins.ToString();
     }
 }
