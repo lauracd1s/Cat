@@ -158,9 +158,9 @@ TextureImporter:
       name: Bat_Fly_0
       rect:
         serializedVersion: 2
-        x: 23
+        x: 24
         y: 26
-        width: 17
+        width: 16
         height: 11
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -242,6 +242,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Bat_Fly_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 231
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20ca3363ced0b8449acfe729ce4aea3f
+      internalID: 1138468999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_Fly_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d429f2dc7e62267489164c01e7de2302
+      internalID: 1001768616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_Fly_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 913af4594ac41b944b63ea0c590b3823
+      internalID: -679513840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -260,6 +326,9 @@ TextureImporter:
       Bat_Fly_1: 2129977301182375049
       Bat_Fly_2: 4629786828116271281
       Bat_Fly_3: 3316824086482507018
+      Bat_Fly_4: 1138468999
+      Bat_Fly_5: 1001768616
+      Bat_Fly_6: -679513840
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
