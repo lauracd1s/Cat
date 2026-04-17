@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43992123}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,6 +800,8 @@ MonoBehaviour:
   damageLevel: 1
   speedLevel: 1
   maxLivesLevel: 1
+  currentLevel: 1
+  totalLevels: 5
 --- !u!4 &377279094
 Transform:
   m_ObjectHideFlags: 0
@@ -1306,7 +1308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 731571709}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3157,7 +3159,7 @@ MonoBehaviour:
   jumpForce: 15
   climbSpeed: 3
   attackPoint: {fileID: 829252424}
-  attackRange: 1
+  attackRange: 100
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -3177,7 +3179,7 @@ GameObject:
   - component: {fileID: 1536741623}
   - component: {fileID: 1536741626}
   - component: {fileID: 1536741627}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 'Crab_Idle_0 '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
