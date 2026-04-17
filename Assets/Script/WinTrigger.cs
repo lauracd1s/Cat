@@ -40,6 +40,7 @@ public class WinTrigger : MonoBehaviour
                 return;
             }
 
+             if (winText != null)
             winText.SetActive(true);
 
             PlayerMovement player = collision.GetComponent<PlayerMovement>();
@@ -52,6 +53,6 @@ public class WinTrigger : MonoBehaviour
 
     void GoToShop()
     {
-        SceneManager.LoadScene("Shop");
+        GameManager.instance.GoToShop();
     }
 }

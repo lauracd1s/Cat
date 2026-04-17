@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.CompareTag("Goal"))
         {
-            SceneManager.LoadScene("Shop");
+            SceneManager.LoadScene("TransicionNivel");
         }
     }
 

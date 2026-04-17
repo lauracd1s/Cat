@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     public int speedLevel = 1;
     public int maxLivesLevel = 1;
 
+    [Header("Progreso")]
+public int currentLevel = 1;
+public int totalLevels = 5;
+
     void Awake()
     {
         if (instance == null)
@@ -63,9 +67,10 @@ public class GameManager : MonoBehaviour
 
     void RestartLevel()
     {
-        SceneManager.LoadScene("Nivel1");
-        lives = 3;
-        coins = 0;
+        currentLevel = 1;
+    lives = 3;
+    coins = 0;
+    SceneManager.LoadScene("Nivel1");
     }
 
     // 💰 MONEDAS
@@ -132,4 +137,14 @@ public class GameManager : MonoBehaviour
             deathText.SetActive(false);
         }
     }
+    public void GoToShop()
+{
+    // Guarda desde qué nivel vienes
+    string currentScene = SceneManager.GetActiveScene().name;
+    if (currentScene.StartsWith("Nivel"))
+    {
+        currentLevel = int.Parse(currentScene.Replace("Nivel", ""));
+    }
+    SceneManager.LoadScene("TransicionNivel");
+}
 }

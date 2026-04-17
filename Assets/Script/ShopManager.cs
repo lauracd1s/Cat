@@ -20,6 +20,16 @@ public class ShopManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene("Nivel2");
+        int next = GameManager.instance.currentLevel + 1;
+
+        if (next > GameManager.instance.totalLevels)
+        {
+            // Ya pasó el último nivel — ir a pantalla de victoria
+            SceneManager.LoadScene("MenuPrincipal"); // o "WinScreen"
+        }
+        else
+        {
+            SceneManager.LoadScene("Nivel" + next);
+        }
     }
 }
