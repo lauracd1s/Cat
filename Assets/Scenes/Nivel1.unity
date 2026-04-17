@@ -2742,7 +2742,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2770,6 +2770,11 @@ MonoBehaviour:
   speed: 2
   pointA: {fileID: 1646882990}
   pointB: {fileID: 972421107}
+  groundCheck: {fileID: 0}
+  groundCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   player: {fileID: 0}
   detectionRange: 3
   attackRange: 1.5
@@ -3278,6 +3283,11 @@ MonoBehaviour:
   speed: 2
   pointA: {fileID: 43992123}
   pointB: {fileID: 731571709}
+  groundCheck: {fileID: 0}
+  groundCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   player: {fileID: 0}
   detectionRange: 3
   attackRange: 1.5
@@ -3297,7 +3307,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -3365,7 +3375,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.021872759, y: 0.48120737}
+  m_Offset: {x: -0.021872759, y: 0.44935322}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -3375,7 +3385,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2099061, y: 0.9674301}
+  m_Size: {x: 1.2099061, y: 0.9583287}
   m_EdgeRadius: 0
 --- !u!1 &1646882989
 GameObject:
@@ -3480,7 +3490,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7013631516640934163, guid: b438465a32eb63243a7889eb1f400d29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.64, y: 0.64}
@@ -3497,8 +3507,8 @@ Transform:
   m_GameObject: {fileID: 1653226137}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.46, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalPosition: {x: 0.576, y: -2.665, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 515422183}
@@ -3512,7 +3522,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653226137}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9371d7e288c4774587a100ca8850d53, type: 3}
   m_Name: 
@@ -3521,6 +3531,11 @@ MonoBehaviour:
   speed: 2
   pointA: {fileID: 515422183}
   pointB: {fileID: 948814450}
+  groundCheck: {fileID: 0}
+  groundCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   player: {fileID: 0}
   detectionRange: 3
   attackRange: 1.5
@@ -3559,17 +3574,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0078963265, y: -0.007896304}
+  m_Offset: {x: -0.008162096, y: 0.05094821}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.17, y: 0.11}
+    pivot: {x: 0.5626667, y: 0.04842498}
+    oldSize: {x: 0.16, y: 0.11}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.27676874, y: 0.21359813}
+  m_Size: {x: 0.17736223, y: 0.12894444}
   m_EdgeRadius: 0
 --- !u!50 &1653226143
 Rigidbody2D:
@@ -3586,7 +3601,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4129,7 +4144,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4157,6 +4172,11 @@ MonoBehaviour:
   speed: 2
   pointA: {fileID: 1691896184}
   pointB: {fileID: 1724446159}
+  groundCheck: {fileID: 0}
+  groundCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   player: {fileID: 0}
   detectionRange: 3
   attackRange: 1.5
