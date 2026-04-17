@@ -7,6 +7,9 @@ public class CoinsUI : MonoBehaviour
 
     void Update()
     {
-        text.text = GameManager.instance.coins.ToString();
+        if (GameManager.instance != null && text != null)
+        {
+            text.text = GameManager.instance.coins.ToString();
+        }
     }
 }

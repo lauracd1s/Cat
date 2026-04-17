@@ -17,12 +17,18 @@ public class EnemyPatrol : MonoBehaviour
     private Transform target;
     private SpriteRenderer sr;
     private bool isChasing = false;
+    private Rigidbody2D rb;
+
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        // sr = GetComponent<SpriteRenderer>();
+        //target = pointA;
+
+
+        sr = GetComponentInChildren<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>(); // 👈 ESTO ES CLAVE
         target = pointA;
-        target = pointB;
 
     }
 
@@ -51,11 +57,13 @@ public class EnemyPatrol : MonoBehaviour
     // 👾 PERSEGUIR JUGADOR
     void ChasePlayer(float distance)
     {
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            player.position,
-            speed * Time.deltaTime
+        Vector2 newPos = Vector2.MoveTowards(
+        rb.position,
+        player.position,
+        speed * Time.deltaTime
         );
+
+        rb.MovePosition(newPos);
 
         FlipTowards(player.position);
 
@@ -73,11 +81,14 @@ public class EnemyPatrol : MonoBehaviour
         if (target == null || pointA == null || pointB == null)
             return;
 
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            target.position,
-            speed * Time.deltaTime
+        //yo
+        Vector2 newPos = Vector2.MoveTowards(
+        rb.position,
+        target.position,
+        speed * Time.deltaTime
         );
+
+        rb.MovePosition(newPos);
 
         float distance = Vector2.Distance(transform.position, target.position);
 
