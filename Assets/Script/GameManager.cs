@@ -4,23 +4,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int coins = 0;
 
+    [Header("Vidas")]
     public int lives = 3;
     public GameObject[] lifeIcons;
+    public GameObject deathText;
 
-    public GameObject deathText; // 👈 NUEVO
-    void Start()
-{
-    lifeIcons = GameObject.FindGameObjectsWithTag("LifeIcon");
-}
+    [Header("Monedas")]
+    public int coins = 0;
+
+    [Header("PowerUps")]
+    public int damageLevel = 1;
+    public int speedLevel = 1;
+    public int maxLivesLevel = 1;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // 🔥 CLAVE
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -28,79 +31,105 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoseLife()
-{
-    if (lives > 0)
+    void Start()
     {
-        lives--;
+        FindUI();
+    }
 
-        if (lives < lifeIcons.Length)
+    // 💥 PERDER VIDA
+    public void LoseLife()
+    {
+        if (lives > 0)
         {
-            lifeIcons[lives].SetActive(false);
+            lives--;
+
+            if (lives < lifeIcons.Length)
+            {
+                lifeIcons[lives].SetActive(false);
+            }
+        }
+
+        if (lives <= 0)
+        {
+            if (deathText == null)
+                FindUI();
+
+            if (deathText != null)
+                deathText.SetActive(true);
+
+            Invoke(nameof(RestartLevel), 2f);
         }
     }
-
-    if (lives <= 0)
-{
-    if (deathText == null)
-    {
-        FindUI(); // 👈 intenta buscar otra vez
-    }
-
-    if (deathText != null)
-    {
-        deathText.SetActive(true);
-    }
-    else
-    {
-        Debug.LogError("❌ No hay DeathText en esta escena");
-    }
-
-    Invoke("RestartLevel", 2f);
-}
-}
 
     void RestartLevel()
     {
         SceneManager.LoadScene("Nivel1");
+        lives = 3;
+        coins = 0;
     }
+
+    // 💰 MONEDAS
+    public void AddCoins(int amount)
+    {
+        coins += amount;
+        Debug.Log("Monedas: " + coins);
+    }
+
+    // 🛒 TIENDA
+    public void BuyDamage()
+    {
+        if (coins >= 5)
+        {
+            coins -= 5;
+            damageLevel++;
+        }
+    }
+
+    public void BuySpeed()
+    {
+        if (coins >= 5)
+        {
+            coins -= 5;
+            speedLevel++;
+        }
+    }
+
+    public void BuyLife()
+    {
+        if (coins >= 5)
+        {
+            coins -= 5;
+            maxLivesLevel++;
+            lives++;
+        }
+    }
+
+    // 🔄 UI ENTRE ESCENAS
     void OnEnable()
-{
-    SceneManager.sceneLoaded += OnSceneLoaded;
-}
-
-void OnDisable()
-{
-    SceneManager.sceneLoaded -= OnSceneLoaded;
-}
-
-void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-{
-    Invoke("FindUI", 0.1f);
-
-}
-void FindUI()
-{
-    lifeIcons = GameObject.FindGameObjectsWithTag("LifeIcon");
-
-    GameObject dt = GameObject.FindGameObjectWithTag("DeathText");
-
-    if (dt != null)
     {
-        deathText = dt;
-        deathText.SetActive(false);
-        Debug.Log("✅ DeathText encontrado");
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    else
+
+    void OnDisable()
     {
-       // Debug.LogWarning("⚠️ DeathText NO encontrado en esta escena");
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-}
 
-public void AddCoins(int amount)
-{
-    coins += amount;
-    Debug.Log("Monedas: " + coins);
-}
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Invoke(nameof(FindUI), 0.1f);
+    }
 
+    void FindUI()
+    {
+        lifeIcons = GameObject.FindGameObjectsWithTag("LifeIcon");
+
+        GameObject dt = GameObject.FindGameObjectWithTag("DeathText");
+
+        if (dt != null)
+        {
+            deathText = dt;
+            deathText.SetActive(false);
+        }
+    }
 }

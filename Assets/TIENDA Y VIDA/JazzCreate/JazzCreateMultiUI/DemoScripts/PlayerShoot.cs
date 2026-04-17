@@ -39,11 +39,11 @@
 
             if (rb != null)
             {
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
                 rb.angularVelocity = 0f;
 
                 // Always shoot straight up the screen (world +Y)
-                rb.velocity = Vector2.up * bulletSpeed;
+                rb.linearVelocity = Vector2.up * bulletSpeed;
             }
         }
     }

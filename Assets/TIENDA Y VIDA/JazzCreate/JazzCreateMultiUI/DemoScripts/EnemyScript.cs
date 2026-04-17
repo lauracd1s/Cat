@@ -23,7 +23,7 @@ public class EnemyScript : MonoBehaviour
     private void OnEnable()
     {
         // Reset velocity when pulled from pool
-        rb2D.velocity = Vector2.zero;
+        rb2D.linearVelocity = Vector2.zero;
         rb2D.angularVelocity = 0f;
         
     }
@@ -31,7 +31,7 @@ public class EnemyScript : MonoBehaviour
     private void FixedUpdate()
     {
         // Always move down screen (world -Y)
-        rb2D.velocity = Vector2.down * enemySpeed;
+        rb2D.linearVelocity = Vector2.down * enemySpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

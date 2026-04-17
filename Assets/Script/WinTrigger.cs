@@ -4,26 +4,54 @@ using UnityEngine.SceneManagement;
 public class WinTrigger : MonoBehaviour
 {
     public GameObject winText;
-    public float delay = 3f; // ⏱ tiempo antes de cambiar escena
+    public float delay = 2f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    [Header("Condiciones")]
+    public bool requireBossDead = false;
+    public BossController boss;
+
+    [Header("Monedas requeridas")]
+    public int requiredCoins = 0;
+
+    private bool canWin = false;
+
+    void Update()
     {
-        if (collision.CompareTag("Player"))
+        if (requireBossDead && boss == null)
         {
-            winText.SetActive(true);
-
-            // opcional: detener movimiento del jugador
-            collision.GetComponent<PlayerMovement>().enabled = false;
-
-            // opcional: pausar físicas (pero OJO con Invoke)
-            Time.timeScale = 1f;
-
-            Invoke("GoToMenu", delay);
+            canWin = true;
+        }
+        else if (!requireBossDead)
+        {
+            canWin = true;
         }
     }
 
-    void GoToMenu()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene("MenuPrincipal");
+        if (!canWin) return;
+
+        if (collision.CompareTag("Player"))
+        {
+            // 💰 Validar monedas
+            if (GameManager.instance.coins < requiredCoins)
+            {
+                Debug.Log("No tienes suficientes frutas");
+                return;
+            }
+
+            winText.SetActive(true);
+
+            PlayerMovement player = collision.GetComponent<PlayerMovement>();
+            if (player != null)
+                player.enabled = false;
+
+            Invoke(nameof(GoToShop), delay);
+        }
+    }
+
+    void GoToShop()
+    {
+        SceneManager.LoadScene("Shop");
     }
 }
